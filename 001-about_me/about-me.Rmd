@@ -1,0 +1,107 @@
+---
+title: "About Me"
+author: "Erica Robertson"
+output:
+  html_document:
+    toc: yes
+  word_document:
+    toc: yes
+  pdf_document:
+    toc: yes
+bibliography: references.bib
+---
+
+# Who I am and where I came from
+I am originally from Illinois, but I went to school in at [George Washignton University](https://www.gwu.edu/) in Washington DC and after that lived in my car around Jackson WY for 2 months. That's where I got really into rock climbing, especially alpine climbing, which is what really drives me (besides research). I always knew I wanted to go back to graduate school but wasn't sure what I wanted to study until I discovered Rosy Finches while hiking up on the Middle Teton one afternoon. Researching those birds brought me to Kristen Ruegg's lab and to CSU. I'm taking this class now because my work requires lots of bioinformatics skills and although I've been trudging alone learning as best I can I thought I more structured class would be helpful.
+
+Some of my favorite things to do are:
+1. Rock climbing of any sort
+2. Adventuring with my dog
+3. Reading
+4. Painting
+
+Here's a picture of me and my dog, Juniper.
+
+```{r me_pic, echo=FALSE, out.width="500px"}
+knitr::include_graphics("~/Downloads/IMG_1877.jpg", auto_pdf = TRUE)
+```
+
+# Research Interests
+
+I'm interested in understanding how the evolution of local adaptation is impacted Rosy Finch species ability to adapt to climate change.
+
+## Influential papers
+
+
+Bay R, Harrigan RJ, Underwood VL, Gibbs HL, Smith TB, Ruegg K. 2018. Genomic signals of selection predict climate-driven population declines. Science:83-89.
+[@bay2018genomic]
+
+@bay2018genomic is a great paper that introduced me to the type of conservation genomics that is done is Kristen's lab and that I am learning how to do. This paper asseses the genomic vulnerability of yellow warbler populations and determines genes that are important to this species ability to adapt to climate change.
+
+Drovetski SV, Zink RM, Mode NA. 2009. Patchy distributions belie morphological and genetic homogeneity in rosy-finches. Molecular Phylogenetics and Evolution 50:437-445.
+[@drovetski2009patchy]
+
+@drovetski2009patchy was one of the first papers I read about Rosy Finches back when I was just getting into them, and also one of the few papers that applies genetics (in this case phylogenetics) to this group of species. The authors tease apart the phylogenetic relationships between different species of Rosy Finch.
+
+## The mathematics behind my research
+
+This first equation is the mathematical writing of how you would get a estimate of local adaptation using the "home vs away" definition of local adaptation, per @blanquart2013practical.
+$$
+\Delta_{HA} (i)= \overline{W}_{i\to i} - \frac{1}{P-1} \displaystyle \sum\limits_{\substack{j=1 \\ j\neq 1}} \overline{W}_{i-j}
+$$
+This is an equation for effective population size:
+Ne = 4NmNf/(Nm + Nf)
+$$
+N_e = \frac{4N_m N_f}{N_m + N_f}
+$$
+
+## My computing experience
+
+Describe any experience you have with any programming languages.
+Include a snippet of code in two different languages using a
+non-evaluated code block.  This can be something you have previously
+written, or, if you don't have any, then find and copy a few lines of code
+off the web.
+
+I have been working with genomic data for the last semester, and am currently fighting with some GWAS analysis. This is the code I would run for a linear mixed model...
+```{}
+/projects/ericacnr@colostate.edu/GEMMA/bin/gemma -bfile GCRF_bill_length -k output/GCRF_bill_length.relate.cXX.txt -lmm 1 -o GCRF_bill_length_lmm -w 500000 -s 5000000
+```
+
+I'm also used to doing stuff in R (largely from a landscape ecology course I took my first year, shout of to Kyle Horton). Here's a little chunk of me running a t.test on some morphological data.
+
+```{r}
+morpho <- read.csv("~/Desktop/GCRF/R data/GCRF_morphology.csv")
+nare <- as.data.frame(cbind(morpho$site, morpho$BGP_ID, morpho$nare_length))
+colnames(nare) <- c("site", "BGP_ID", "measure")
+
+nare <- na.omit(nare)
+a <- c(62, 67, 70, 78, 83, 84, 89, 93, 94, 95, 96)
+nare <- nare[-a,]
+nare$measure <- as.numeric(nare$measure)
+
+#super significant two way test! p=3.23e-06
+t.test(measure ~ site, data=nare)
+```
+
+## What I hope to get out of this class
+
+Give me a bullet list of three things:
+
+* more confidence trouble shooting coding issues, I can get so stalled on this part
+* understanding better what the programs I'm running are actually doing
+* getting faster at righting scripts
+
+# Evaluating some R code
+
+```{r}
+library(ggplot2)
+ggplot(nare, aes(x=site, y=measure))+
+  geom_jitter()+
+  theme_classic()+
+  stat_summary(fun.y=mean, geom="point", shape=18,
+                 size=3, color="red")
+```
+
+# Citations
+
